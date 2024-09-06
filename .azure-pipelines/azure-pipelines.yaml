@@ -1,0 +1,49 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - '*.tf'
+      - '*.tfvars'
+      - '.terraform.lock.hcl'
+      - .azure-pipelines/**
+pr:
+  branches:
+    include:
+      - '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: 'latest'
+    terraformLocation: 'Auto'
+
+- task: TerraformCLI@0
+  displayName: 'terraform init'
+  inputs:
+    providerServiceAws: 'AWSServiceConnection'
+    providerAwsRegion: 'ap-southeast-1'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    command: 'init'
+
+- task: TerraformCLI@0
+  displayName: 'terraform validate'
+  inputs:
+    providerServiceAws: 'AWSServiceConnection'
+    providerAwsRegion: 'ap-southeast-1'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    command: 'validate'
+
+- task: TerraformCLI@0
+  displayName: 'terraform apply'
+  inputs:
+    providerServiceAws: 'AWSServiceConnection'
+    providerAwsRegion: 'ap-southeast-1'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    command: 'plan'
+    commandOptions: '-out=tfplan -input=false'
+    publishPlanResults: 'tfplan'
