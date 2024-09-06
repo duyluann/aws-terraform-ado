@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "editorconfig.editorconfig",
+        "visualstudioexptteam.vscodeintellicode",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "4ops.terraform",
+        "hashicorp.terraform",
+        "seatonjiang.gitmoji-vscode",
+        "pkief.material-icon-theme",
+        "equinusocio.vsc-material-theme"
+    ]
+}
