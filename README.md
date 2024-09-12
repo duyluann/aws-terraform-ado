@@ -1,4 +1,4 @@
-# 🚧 Terraform Project Template
+# 🚧 Terraform on Azure Pipeline Project
 
 This repository provides a structured template for Terraform projects, enabling consistent and scalable infrastructure deployments. The template is equipped with best practices, CI/CD integration, and environment-specific configurations to streamline your infrastructure management.
 
