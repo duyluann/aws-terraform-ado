@@ -74,13 +74,6 @@ To get started with development, you can use the pre-configured development cont
 - Environment Variables: The `environments/` directory contains environment-specific variable files (`.tfvars`).
 - Modules: Reusable Terraform modules are stored in the `modules/` directory.
 
-### 🔄 CI/CD
-
-This repository includes a GitHub Actions workflow to automatically validate and apply your Terraform configurations:
-
-- Terraform Validation: Automatically runs terraform validate on pull requests.
-- Stale Issues: Automatically marks issues and pull requests as stale after a period of inactivity.
-
 ### ✅ Pre-Commit Hooks
 
 Pre-commit hooks are set up to ensure code quality and consistency. To install the pre-commit hooks:
@@ -88,6 +81,45 @@ Pre-commit hooks are set up to ensure code quality and consistency. To install t
 ```bash
 pre-commit install
 ```
+
+## ⚙️ Semantic Commit Messages
+This project uses [Semantic Commit Messages](https://www.conventionalcommits.org/) to ensure meaningful and consistent commit history. The format is as follows:
+
+```php
+<type>(<scope>): <subject>
+```
+
+### Types
+
+- `feat`: A new feature (e.g., `feat: add login functionality`).
+- `fix`: A bug fix (e.g., `fix: resolve login button issue`).
+- `docs`: Documentation changes (e.g., `docs: update API documentation`).
+- `style`: Code style changes (formatting, missing semi-colons, etc.) without changing logic (e.g., `style: fix indentation`).
+- `refactor`: Code changes that neither fix a bug nor add a feature (e.g., `refactor: update user controller structure`).
+- `test`: Adding or updating tests (e.g., `test: add unit tests for login service`).
+- `chore`: Changes to build process, auxiliary tools, or libraries (e.g., `chore: update dependencies`).
+
+### Scope
+
+Optional: The part of the codebase affected by the change (e.g., `feat(auth): add OAuth support`)
+
+### Subject
+
+A brief description of the change, using the imperative mood (e.g., `fix: resolve issue with user authentication`).
+
+## 🚀 Semantic Release
+
+This project is configured with [Semantic Release](https://semantic-release.gitbook.io/semantic-release) to automate the release process based on your commit messages.
+
+### How It Works
+
+1. Analyze commits: Semantic Release inspects commit messages to determine the type of changes in the codebase.
+2. Generate release version: Based on the commit type, it will automatically bump the version following semantic versioning:
+    - fix → Patch release (e.g., 1.0.1)
+    - feat → Minor release (e.g., 1.1.0)
+    - BREAKING CHANGE → Major release (e.g., 2.0.0)
+3. Create release notes: It generates a changelog from the commit messages and includes it in the release.
+4. Publish: It automatically publishes the new version to the repository (and any other configured registries, e.g., npm).
 
 ## 🤝 Contributing
 
