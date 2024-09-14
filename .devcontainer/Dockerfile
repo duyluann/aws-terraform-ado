@@ -1,6 +1,8 @@
 # Use an official Node.js image as a base
 FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-22.04
 
+ARG ARCH
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     curl \
@@ -10,23 +12,24 @@ RUN apt-get update && apt-get install -y \
     ca-certificates  # Install CA certificates
 
 # Install AWS CLI
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+RUN if [ "${ARCH}" = "arm64" ]; then ARCH=aarch64; fi && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-${ARCH}.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install && \
     rm -rf awscliv2.zip aws
 
-# Install eksctl
-RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v0.155.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp && \
+# Install eksctl# Install eksctl
+RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v0.155.0/eksctl_Linux_${ARCH}.tar.gz" | tar xz -C /tmp && \
     sudo mv /tmp/eksctl /usr/local/bin
 
 # Install Terraform
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
-    apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
+    apt-add-repository "deb [arch=${ARCH}] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
     apt-get update && \
     apt-get install -y terraform
 
 # Install kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${ARCH}/kubectl" && \
     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
     rm kubectl
 

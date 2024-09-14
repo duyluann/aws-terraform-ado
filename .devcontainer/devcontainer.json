@@ -1,8 +1,6 @@
 {
 	"name": "My Terraform Workspace",
-	"build": {
-        "dockerfile": "Dockerfile"
-    },
+	"image":"aws-terraform-ado:local",
 	"customizations": {
 		"vscode": {
 			"settings": {
@@ -20,5 +18,6 @@
 			]
 		}
 	},
+	"initializeCommand": "export DOCKER_BUILDKIT=1 && docker build --platform linux/$(arch) -t aws-terraform-ado:local -f .devcontainer/Dockerfile --build-arg ARCH=$(arch) .",
 	"postCreateCommand": "aws --version && eksctl version && terraform -version"
 }
