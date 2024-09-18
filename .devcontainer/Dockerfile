@@ -19,18 +19,21 @@ RUN if [ "${ARCH}" = "arm64" ]; then ARCH=aarch64; fi && \
     rm -rf awscliv2.zip aws
 
 # Install eksctl# Install eksctl
-RUN export PLATFORM=$(uname -s)_${ARCH} && \
-    curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v0.155.0/eksctl_$PLATFORM.tar.gz" | tar xz -C /tmp && \
+RUN if [ "${ARCH}" = "x86_64" ]; then ARCH=amd64; fi && \
+    echo "https://github.com/weaveworks/eksctl/releases/download/v0.155.0/eksctl_$(uname -s)_${ARCH}.tar.gz" && \
+    curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v0.155.0/eksctl_$(uname -s)_${ARCH}.tar.gz" | tar xz -C /tmp && \
     sudo mv /tmp/eksctl /usr/local/bin
 
 # Install Terraform
-RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
+RUN if [ "${ARCH}" = "x86_64" ]; then ARCH=amd64; fi && \
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
     apt-add-repository "deb [arch=${ARCH}] https://apt.releases.hashicorp.com $(lsb_release -cs) main" && \
     apt-get update && \
     apt-get install -y terraform
 
 # Install kubectl
-RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${ARCH}/kubectl" && \
+RUN if [ "${ARCH}" = "x86_64" ]; then ARCH=amd64; fi && \
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/${ARCH}/kubectl" && \
     install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
     rm kubectl
 
