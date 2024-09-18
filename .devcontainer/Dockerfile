@@ -19,8 +19,8 @@ RUN if [ "${ARCH}" = "arm64" ]; then ARCH=aarch64; fi && \
     rm -rf awscliv2.zip aws
 
 # Install eksctl# Install eksctl
-RUN PLATFORM=$(uname -s)_${ARCH} && \
-    curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v0.155.0/eksctl_Linux_${PLATFORM}.tar.gz" | tar xz -C /tmp && \
+RUN export PLATFORM=$(uname -s)_${ARCH} && \
+    curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v0.155.0/eksctl_$PLATFORM.tar.gz" | tar xz -C /tmp && \
     sudo mv /tmp/eksctl /usr/local/bin
 
 # Install Terraform
