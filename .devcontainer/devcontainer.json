@@ -1,24 +1,25 @@
 {
-	"name": "My Terraform Workspace",
-	"build": {
-        "dockerfile": "Dockerfile"
-    },
-	"customizations": {
-		"vscode": {
-			"settings": {
-				"terminal.integrated.shell.linux": "/bin/bash"
-			},
-			"extensions": [
-				"BeardedBear.beardedtheme",
-				"PKief.material-icon-theme",
-				"streetsidesoftware.code-spell-checker",
-				"EditorConfig.EditorConfig",
-				"seatonjiang.gitmoji-vscode",
-				"hashicorp.hcl",
-				"hashicorp.terraform",
-				"esbenp.prettier-vscode"
-			]
-		}
-	},
-	"postCreateCommand": "aws --version && eksctl version && terraform -version"
+  "name": "My Terraform Workspace",
+  "image": "duyluann/terraform-toolkit:latest",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.copyOnSelection": true
+      }
+    }
+  },
+  "containerUser": "tf-user",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/app,type=bind",
+    "source=${env:HOME}/.ssh,target=/home/tf-user/.ssh,type=bind,readonly",
+    "source=${env:HOME}/.gnupg,target=/home/tf-user/.gnupg,type=bind,readonly"
+  ],
+  "postStartCommand": {
+    "set-git-config-safe-directory": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+    "set-git-config-line-endings": "git config --global core.autocrlf input",
+    "set-git-config-gpg-program": "git config --global --add gpg.program /usr/bin/gpg",
+    "pre-commit-install": "pre-commit install"
+  },
+  "postCreateCommand": "terraform -version"
 }
