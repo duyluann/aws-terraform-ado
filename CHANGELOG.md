@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.2.0](https://github.com/duyluann/aws-terraform-ado/compare/v1.1.0...v1.2.0) (2025-07-20)
+
+
+### Features
+
+* auto merge pr from bot ([c33b741](https://github.com/duyluann/aws-terraform-ado/commit/c33b74166eb7c248395165a1e1ff301fa953dac7))
+
 # [1.1.0](https://github.com/duyluann/aws-terraform-ado/compare/v1.0.1...v1.1.0) (2025-01-18)
 
 
