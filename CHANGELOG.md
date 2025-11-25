@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.3.0](https://github.com/duyluann/aws-terraform-ado/compare/v1.2.0...v1.3.0) (2025-11-25)
+
+
+### Features
+
+* New changes from template repo ([#77](https://github.com/duyluann/aws-terraform-ado/issues/77)) ([fc812cc](https://github.com/duyluann/aws-terraform-ado/commit/fc812cc5fd7daa8b3b3e9fe70428293ed40a99d2))
+
 # [1.2.0](https://github.com/duyluann/aws-terraform-ado/compare/v1.1.0...v1.2.0) (2025-07-20)
 
 
