@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> This repository has been migrated to [ops4life/aws-terraform-ado](https://github.com/ops4life/aws-terraform-ado).
+> Please use the new repository for all future development and contributions.
+
 # 🚧 Terraform on Azure Pipeline Project
 
 This repository provides a structured template for Terraform projects, enabling consistent and scalable infrastructure deployments. The template is equipped with best practices, CI/CD integration, and environment-specific configurations to streamline your infrastructure management.
